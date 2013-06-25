@@ -6,138 +6,6 @@ Rison mirror (http://mjtemplate.org/examples/rison.html)
 
 # Rison - Compact Data in URIs
 
-modified from the [json.org](http://json.org) grammar.
-
-_object_
-
-    `**()**`  
-`**(**` _members_ `**)**`
-
-`****`
-
-_members_
-
-    _pair_  
-_pair_ `**,**` _members_
-
-_pair_
-
-    _key_ `**:**` _value_
-_array_
-
-    `**!()**`  
-`**!(**` _elements_ `**)**`
-
-_elements_
-
-    _value_   
-_value_ `**,**` _elements_
-
-_key_
-
-    _id_  
-_string_
-
-_value_
-
-    _id_  
-_string_
-
-_number_
-
-_object_
-
-_array_
-
-`**!t**`
-
-`**!f**`
-
-`**!n**`
-
-* * *
-
-_id_
-
-     _idstart_  
-_idstart idchars_
-
-_idchars_
-
-    _idchar_  
-_idchar idchars_
-
-_idchar_
-
-     any alphanumeric ASCII character  
-any ASCII character from the set `-_./~`
-
-any non-ASCII Unicode character
-
-_idstart_
-
-     any _idchar_ not in  
-&nbsp_place_holder;&nbsp_place_holder;&nbsp_place_holder;&nbsp_place_holder;**
-`-`**, _digit_
-
-* * *
-
-_string_
-
-    `**''**`  
-`**'**` _strchars_ `**'**`
-
-_strchars_
-
-    _strchar_  
-_strchar strchars_
-
-_strchar_
-
-    any Unicode character except  
-&nbsp_place_holder;&nbsp_place_holder;&nbsp_place_holder;&nbsp_place_holder;AS
-CII **`'`** and **`!`**
-
-`**!!**`
-
-`**!'**`
-
-* * *
-
-_number_
-
-    _int_  
-_int frac_
-
-_int exp_
-
-_int frac exp_
-
-_int_
-
-    _digit_  
-_digit1-9 digits_
-
-`**-**` _digit_
-
-`**-**` _digit1-9 digits_
-
-_frac_
-
-    **`.`** _digits_
-_exp_
-
-    _e_ _digits_
-_digits_
-
-    _digit_  
-_digit_ _digits_
-
-_e_
-
-    **`e`**  
-**`e-`**  
-
 This page describes _Rison_, a data serialization format optimized for
 compactness in URIs. Rison is a slight variation of JSON that looks vastly
 superior after URI encoding. Rison still expresses exactly the same set of
@@ -189,45 +57,18 @@ possible:
 
 rison token json token  meaning
 
-'
+* `'` `"` string quote
+* `!` `\` string escape
+* `(...)` `{...}` object
+* `!(...)` `[...]` array
 
-"
-
-string quote
-
-!
-
-\
-
-string escape
-
-(...)
-
-{...}
-
-object
-
-!(...)
-
-[...]
-
-array
-
-  * the JSON literals that look like identifiers (`true`, `false` and `null`) are represented as `!` sequences: 
+* the JSON literals that look like identifiers (`true`, `false` and `null`) are represented as `!` sequences: 
 
 rison token json token
 
-!t
-
-true
-
-!f
-
-false
-
-!n
-
-null
+* `!t` true
+* `!f` false
+* `!n` null
 
 The `!` character plays two similar but different roles, as an escape
 character within strings, and as a marker for special values. This may be
