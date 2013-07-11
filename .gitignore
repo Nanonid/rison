@@ -1,3 +1,9 @@
+dist
+*.pyc
+
+.settings
+.DS_Store
+
 lib-cov
 *.seed
 *.log
