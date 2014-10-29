@@ -20,6 +20,40 @@ Downloads:
   * [rison.py](http://freebase-python.googlecode.com/svn/trunk/freebase/rison.py) contains a decoder in Python. 
   * [Tim Fletcher](http://tfletcher.com/dev/) has implemented [Rison in Ruby](http://rison.rubyforge.org/) including both encoder and decoder. 
 
+
+### Quick Start (Javascript)
+
+Install with npm or copy in `js/rison.js` manually, the script is
+compatible with AMD and CommonJS (such as browserify or node), you
+can also drop it into a `<script>` tag, creating the `rison` global.
+
+Once installed you have the following methods available:
+```js
+var rison = require('rison');
+
+rison.encode({any: "json", yes: true});
+rison.encode_array(["A", "B", {supportsObjects: true}]);
+rison.encode_object({supportsObjects: true, ints: 435});
+
+// Rison
+rison.encode({any: "json", yes: true});
+// (any:json,yes:!t)
+
+// O-Rison
+rison.encode_object({supportsObjects: true, ints: 435});
+// ints:435,supportsObjects:!t
+
+// A-Rison
+rison.encode_array(["A", "B", {supportsObjects: true}]);
+// A,B,(supportsObjects:!t)
+
+// Decode with: rison.decode, rison.decode_object, rison.decode_array
+// Example:
+rison.encode('(any:json,yes:!t)');
+// { any: 'json', yes: true }
+```
+
+
 ### Why another data serialization format?
 
 Rison is intended to meet the following goals, in roughly this order:
