@@ -96,12 +96,12 @@ rison.quote = function(x) {
         return x;
 
     return encodeURIComponent(x)
-        .replace('%2C', ',', 'g')
-        .replace('%3A', ':', 'g')
-        .replace('%40', '@', 'g')
-        .replace('%24', '$', 'g')
-        .replace('%2F', '/', 'g')
-        .replace('%20', '+', 'g');
+        .replace(/%2C/g, ',')
+        .replace(/%3A/g, ':')
+        .replace(/%40/g, '@')
+        .replace(/%24/g, '$')
+        .replace(/%2F/g, '/')
+        .replace(/%20/g, '+');
 };
 
 
