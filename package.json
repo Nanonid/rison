@@ -1,0 +1,13 @@
+
+{
+  "name":         "rison",
+  "version":      "0.1.1",
+  "author":       "Jonas Finnemann Jensen <jopsen@gmail.com>",
+  "description":  "URI friendly encoding for JSON structures",
+  "license":      "Apache-2.0",
+  "repository": {
+    "type":   "git",
+    "url":    "https://github.com/jonasfj/rison.git"
+  },
+  "main":         "js/rison.js"
+}
