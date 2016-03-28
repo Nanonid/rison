@@ -1,7 +1,7 @@
 rison
 =====
 
-Rison mirror (http://mjtemplate.org/examples/rison.html)
+Rison mirror of now dead site (http://mjtemplate.org/examples/rison.html)
 
 
 # Rison - Compact Data in URIs
