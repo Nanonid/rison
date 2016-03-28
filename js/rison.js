@@ -116,21 +116,22 @@ rison.quote = function(x) {
     var sq = { // url-ok but quoted in strings
                "'": true,  '!': true
     },
+    enc = function (v) {
+        if (v && typeof v.toJSON === 'function') v = v.toJSON();
+        var fn = s[typeof v];
+        if (fn) return fn(v);
+    },
     s = {
             array: function (x) {
                 var a = ['!('], b, f, i, l = x.length, v;
                 for (i = 0; i < l; i += 1) {
-                    v = x[i];
-                    f = s[typeof v];
-                    if (f) {
-                        v = f(v);
-                        if (typeof v == 'string') {
-                            if (b) {
-                                a[a.length] = ',';
-                            }
-                            a[a.length] = v;
-                            b = true;
+                    v = enc(x[i]);
+                    if (typeof v == 'string') {
+                        if (b) {
+                            a[a.length] = ',';
                         }
+                        a[a.length] = v;
+                        b = true;
                     }
                 }
                 a[a.length] = ')';
@@ -165,17 +166,13 @@ rison.quote = function(x) {
                     ks.sort();
                     for (ki = 0; ki < ks.length; ki++) {
                         i = ks[ki];
-                        v = x[i];
-                        f = s[typeof v];
-                        if (f) {
-                            v = f(v);
-                            if (typeof v == 'string') {
-                                if (b) {
-                                    a[a.length] = ',';
-                                }
-                                a.push(s.string(i), ':', v);
-                                b = true;
+                        v = enc(x[i]);
+                        if (typeof v == 'string') {
+                            if (b) {
+                                a[a.length] = ',';
                             }
+                            a.push(s.string(i), ':', v);
+                            b = true;
                         }
                     }
                     a[a.length] = ')';
@@ -210,7 +207,7 @@ rison.quote = function(x) {
      *
      */
     rison.encode = function (v) {
-        return s[typeof v](v);
+        return enc(v);
     };
 
     /**
