@@ -503,11 +503,12 @@ rison.parser.prototype.table = {
 
 // return the next non-whitespace character, or undefined
 rison.parser.prototype.next = function () {
+    var c;
     var s = this.string;
     var i = this.index;
     do {
         if (i == s.length) return undefined;
-        var c = s.charAt(i++);
+        c = s.charAt(i++);
     } while (rison.parser.WHITESPACE.indexOf(c) >= 0);
     this.index = i;
     return c;
