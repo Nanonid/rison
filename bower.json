@@ -1,0 +1,20 @@
+{
+  "name": "rison",
+  "description": "URI friendly encoding for JSON structures",
+  "main": "js/rison.js",
+  "authors": [
+    "Jonas Finnemann Jensen <jopsen@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "rison"
+  ],
+  "homepage": "https://github.com/Nanonid/rison",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
