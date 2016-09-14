@@ -49,7 +49,7 @@ rison.encode_array(["A", "B", {supportsObjects: true}]);
 
 // Decode with: rison.decode, rison.decode_object, rison.decode_array
 // Example:
-rison.encode('(any:json,yes:!t)');
+rison.decode('(any:json,yes:!t)');
 // { any: 'json', yes: true }
 ```
 
