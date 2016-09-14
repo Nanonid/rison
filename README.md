@@ -3,6 +3,7 @@ rison
 
 Rison mirror of now dead site (http://mjtemplate.org/examples/rison.html)
 
+**Thanks to all the contributors.**
 
 # Rison - Compact Data in URIs
 
