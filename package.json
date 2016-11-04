@@ -1,7 +1,7 @@
 
 {
   "name":         "rison",
-  "version":      "0.1.1",
+  "version":      "0.1.2",
   "author":       "Metaweb Technologies <devolopers@freebase.com>"
   "description":  "URI friendly encoding for JSON structures",
   "license":      "MIT",
