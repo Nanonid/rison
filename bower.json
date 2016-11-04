@@ -3,9 +3,9 @@
   "description": "URI friendly encoding for JSON structures",
   "main": "js/rison.js",
   "authors": [
-    "Jonas Finnemann Jensen <jopsen@gmail.com>"
+    "Metaweb Technologies <developers@freebase.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "keywords": [
     "rison"
   ],
