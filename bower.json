@@ -12,6 +12,7 @@
   "homepage": "https://github.com/Nanonid/rison",
   "ignore": [
     "**/.*",
+    "python",
     "node_modules",
     "bower_components",
     "test",
