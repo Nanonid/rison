@@ -58,7 +58,7 @@ rison.uri_ok = {  // ok in url paths and in form query args
     var l = [];
     for (var hi = 0; hi < 16; hi++) {
         for (var lo = 0; lo < 16; lo++) {
-            if (hi+lo == 0) continue;
+            if (hi+lo === 0) continue;
             var c = String.fromCharCode(hi*16 + lo);
             if (! /\w|[-_.\/~]/.test(c))
                 l.push('\\u00' + hi.toString(16) + lo.toString(16));
@@ -69,7 +69,7 @@ rison.uri_ok = {  // ok in url paths and in form query args
      * <rison> and <reserved> classes are illegal in ids.
      *
      */
-    rison.not_idchar = l.join('')
+    rison.not_idchar = l.join('');
     //idcrx = new RegExp('[' + rison.not_idchar + ']');
     //console.log('NOT', (idcrx.test(' ')) );
 })();
@@ -81,7 +81,7 @@ rison.not_idchar  = " '!:(),*@$";
  * characters that are illegal as the start of an id
  * this is so ids can't look like numbers.
  */
-rison.not_idstart = "-0123456789";
+rison.not_idstart = '-0123456789';
 
 
 (function () {
@@ -153,10 +153,10 @@ rison.quote = function(x) {
             'boolean': function (x) {
                 if (x)
                     return '!t';
-                return '!f'
+                return '!f';
             },
-            'null': function (x) {
-                return "!n";
+            'null': function () {
+                return '!n';
             },
             number: function (x) {
                 if (!isFinite(x))
@@ -194,7 +194,7 @@ rison.quote = function(x) {
                 return '!n';
             },
             string: function (x) {
-                if (x == '')
+                if (x === '')
                     return "''";
 
                 if (rison.id_ok.test(x))
@@ -206,7 +206,7 @@ rison.quote = function(x) {
                 });
                 return "'" + x + "'";
             },
-            undefined: function (x) {
+            undefined: function () {
                 // ignore undefined just like JSON
                 return;
             }
@@ -230,7 +230,7 @@ rison.quote = function(x) {
      */
     rison.encode_object = function (v) {
         if (typeof v != 'object' || v === null || v instanceof Array)
-            throw new Error("rison.encode_object expects an object argument");
+            throw new Error('rison.encode_object expects an object argument');
         var r = s[typeof v](v);
         return r.substring(1, r.length-1);
     };
@@ -241,7 +241,7 @@ rison.quote = function(x) {
      */
     rison.encode_array = function (v) {
         if (!(v instanceof Array))
-            throw new Error("rison.encode_array expects an array argument");
+            throw new Error('rison.encode_array expects an array argument');
         var r = s[typeof v](v);
         return r.substring(2, r.length-1);
     };
@@ -319,7 +319,7 @@ rison.parser = function (errcb) {
  * by default the rison decoder tolerates no whitespace.
  * to accept whitespace set rison.parser.WHITESPACE = " \t\n\r\f";
  */
-rison.parser.WHITESPACE = "";
+rison.parser.WHITESPACE = '';
 
 // expose this as-is?
 rison.parser.prototype.setOptions = function (options) {
@@ -347,8 +347,8 @@ rison.parser.prototype.error = function (message) {
         console.log('rison parser error: ', message);
     this.message = message;
     return undefined;
-}
-    
+};
+
 rison.parser.prototype.readValue = function () {
     var c = this.next();
     var fn = c && this.table[c];
@@ -375,23 +375,23 @@ rison.parser.prototype.readValue = function () {
     }
 
     if (c) return this.error("invalid character: '" + c + "'");
-    return this.error("empty expression");
-}
+    return this.error('empty expression');
+};
 
-rison.parser.parse_array = function (parser) {
+    rison.parser.parse_array = function (parser) {
     var ar = [];
     var c;
-    while ((c = parser.next()) != ')') {
+    while ((c = parser.next()) !== ')') {
         if (!c) return parser.error("unmatched '!('");
         if (ar.length) {
-            if (c != ',')
+            if (c !== ',')
                 parser.error("missing ','");
-        } else if (c == ',') {
+        } else if (c === ',') {
             return parser.error("extra ','");
         } else
             --parser.index;
         var n = parser.readValue();
-        if (typeof n == "undefined") return undefined;
+        if (typeof n == 'undefined') return undefined;
         ar.push(n);
     }
     return ar;
@@ -402,7 +402,7 @@ rison.parser.bangs = {
     f: false,
     n: null,
     '(': rison.parser.parse_array
-}
+};
 
 rison.parser.prototype.table = {
     '!': function () {
@@ -421,19 +421,19 @@ rison.parser.prototype.table = {
         var o = {};
         var c;
         var count = 0;
-        while ((c = this.next()) != ')') {
+        while ((c = this.next()) !== ')') {
             if (count) {
-                if (c != ',')
+                if (c !== ',')
                     this.error("missing ','");
-            } else if (c == ',') {
+            } else if (c === ',') {
                 return this.error("extra ','");
             } else
                 --this.index;
             var k = this.readValue();
-            if (typeof k == "undefined") return undefined;
-            if (this.next() != ':') return this.error("missing ':'");
+            if (typeof k == 'undefined') return undefined;
+            if (this.next() !== ':') return this.error("missing ':'");
             var v = this.readValue();
-            if (typeof v == "undefined") return undefined;
+            if (typeof v == 'undefined') return undefined;
             o[k] = v;
             count++;
         }
@@ -445,10 +445,10 @@ rison.parser.prototype.table = {
         var start = i;
         var segments = [];
         var c;
-        while ((c = s.charAt(i++)) != "'") {
+        while ((c = s.charAt(i++)) !== "'") {
             //if (i == s.length) return this.error('unmatched "\'"');
             if (!c) return this.error('unmatched "\'"');
-            if (c == '!') {
+            if (c === '!') {
                 if (start < i-1)
                     segments.push(s.slice(start, i-1));
                 c = s.charAt(i++);
@@ -463,7 +463,7 @@ rison.parser.prototype.table = {
         if (start < i-1)
             segments.push(s.slice(start, i-1));
         this.index = i;
-        return segments.length == 1 ? segments[0] : segments.join('');
+        return segments.length === 1 ? segments[0] : segments.join('');
     },
     // Also any digit.  The statement that follows this table
     // definition fills in the digits.
@@ -487,11 +487,11 @@ rison.parser.prototype.table = {
                 continue;
             }
             state = transitions[state+'+'+c.toLowerCase()];
-            if (state == 'exp') permittedSigns = '-';
+            if (state === 'exp') permittedSigns = '-';
         } while (state);
         this.index = --i;
-        s = s.slice(start, i)
-        if (s == '-') return this.error("invalid number");
+        s = s.slice(start, i);
+        if (s === '-') return this.error('invalid number');
         return Number(s);
     }
 };
@@ -507,7 +507,7 @@ rison.parser.prototype.next = function () {
     var s = this.string;
     var i = this.index;
     do {
-        if (i == s.length) return undefined;
+        if (i === s.length) return undefined;
         c = s.charAt(i++);
     } while (rison.parser.WHITESPACE.indexOf(c) >= 0);
     this.index = i;
