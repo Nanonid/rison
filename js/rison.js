@@ -173,7 +173,7 @@ rison.quote = function(x) {
                     if (typeof x.__prototype__ === 'object' && typeof x.__prototype__.encode_rison !== 'undefined')
                         return x.encode_rison();
 
-                    var a = ['('], b, f, i, v, ki, ks=[];
+                    var a = ['('], b, i, v, k, ki, ks=[];
                     for (i in x)
                         ks[ks.length] = i;
                     ks.sort();
@@ -184,7 +184,8 @@ rison.quote = function(x) {
                             if (b) {
                                 a[a.length] = ',';
                             }
-                            a.push(s.string(i), ':', v);
+                            k = isNaN(parseInt(i)) ? s.string(i) : s.number(i)
+                            a.push(k, ':', v);
                             b = true;
                         }
                     }
