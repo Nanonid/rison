@@ -47,6 +47,11 @@ describe('Rison', function() {
 
         expect(deserializedDeeplyNested).to.deep.equal(deeplyNested);
     })
+
+    it('Should throw when not given a string', function() {
+        const nonSting = {};
+        expect (() => rison.decode(nonSting)).to.throw('decode input must be a string');
+    });
 })
 
 describe('O-Rison', function() {
