@@ -280,6 +280,11 @@ rison.quote = function(x) {
  */
 rison.decode = function(r) {
     var errcb = function(e) { throw Error('rison decoder error: ' + e); };
+
+    // validate input is a string
+    if (typeof r !== 'string')
+        return errcb('decode input must be a string');
+
     var p = new rison.parser(errcb);
     return p.parse(r);
 };
