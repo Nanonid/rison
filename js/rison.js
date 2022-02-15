@@ -74,7 +74,7 @@ rison.uri_ok = {  // ok in url paths and in form query args
     //console.log('NOT', (idcrx.test(' ')) );
 })();
 //rison.not_idchar  = " \t\r\n\"<>[]{}'!=:(),*@$;&";
-rison.not_idchar  = " '!:(),*@$";
+// rison.not_idchar  = " '!:(),*@$";
 
 
 /**
