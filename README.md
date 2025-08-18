@@ -17,7 +17,7 @@ You can skip straight to some examples, or read on for more background.
 
 Downloads:
 
-  * [rison.js](./js/rison.js) includes a Javascript Rison encoder (based on [Douglas Crockford](http://json.org)'s [json.js](http://json.org/json.js)) and decoder (based on [Oliver Steele](http://osteele.com)'s [JSON for OpenLaszlo](http://osteele.com/sources/openlaszlo/json/)). 
+  * [rison.js](./js/rison.js) includes a Javascript Rison encoder (based on [Douglas Crockford](http://json.org)'s [json.js](http://json.org/json.js)) and decoder (based on [Oliver Steele](http://osteele.com)'s [JSON for OpenLaszlo](https://github.com/osteele/openlaszlo-json)). 
   * [rison.py](http://freebase-python.googlecode.com/svn/trunk/freebase/rison.py) contains a decoder in Python. 
   * [Tim Fletcher](http://tfletcher.com/dev/) has implemented [Rison in Ruby](http://rison.rubyforge.org/) including both encoder and decoder. 
 
@@ -63,6 +63,7 @@ Rison is intended to meet the following goals, in roughly this order:
   2. Express **nested** data structures
   3. Be **human-readable**
   4. Be **compact**
+
 Rison is necessary because the obvious alternatives fail to meet these goals:
 
   * URI-encoded XML and JSON are illegible and inefficient. 
@@ -90,20 +91,20 @@ possible:
   * object keys should be lexically sorted when encoding. the intent is to improve url cacheability. 
   * uri-safe tokens are used in place of the standard json tokens: 
 
-rison token json token  meaning
-
-* `'` `"` string quote
-* `!` `\` string escape
-* `(...)` `{...}` object
-* `!(...)` `[...]` array
+|rison token|json token|meaning|
+|-|-|-|
+|`'`|`"`|string|quote|
+|`!`|`\`|string|escape|
+|`(...)`|`{...}`|object|
+|`!(...)`|`[...]`|array|
 
 * the JSON literals that look like identifiers (`true`, `false` and `null`) are represented as `!` sequences: 
 
-rison token json token
-
-* `!t` true
-* `!f` false
-* `!n` null
+|rison token|json token|
+|-|-|
+|`!t`|true|
+|`!f`|false|
+|`!n`|null|
 
 The `!` character plays two similar but different roles, as an escape
 character within strings, and as a marker for special values. This may be
@@ -117,10 +118,10 @@ without loss of compatibility.
 
 ### Interaction with URI %-encoding
 
-Rison syntax is designed to produce strings that be legible after being [form-
-encoded](http://www.w3.org/TR/html4/interact/forms.html#form-content-type) for
-the [query](http://gbiv.com/protocols/uri/rfc/rfc3986.html#query) section of a
-URI. None of the characters in the Rison syntax need to be URI encoded in that
+Rison syntax is designed to produce strings that be legible after being
+[form-encoded](http://www.w3.org/TR/html4/interact/forms.html#form-content-type)
+for the [query](http://gbiv.com/protocols/uri/rfc/rfc3986.html#query) section of
+a URI. None of the characters in the Rison syntax need to be URI encoded in that
 context, though the data itself may require URI encoding. Rison tries to be
 orthogonal to the %-encoding process - it just defines a string format that
 should survive %-encoding with very little bloat. Rison quoting is only
@@ -134,12 +135,12 @@ Javascript's builtin `encodeURIComponent()` function will still make Rison
 strings difficult to read. The rison.js library includes a more tolerant URI
 encoder.
 
-Rison uses its own quoting for strings, using the single quote (`**'**`) as a
-string delimiter and the exclamation point (`**!**`) as the string escape
+Rison uses its own quoting for strings, using the single quote (`'`) as a
+string delimiter and the exclamation point (`!`) as the string escape
 character. Both of these characters are legal in uris. Rison quoting is
 largely inspired by Unix shell command line parsing.
 
-All Unicode characters other than `**'**` and `**!**` are legal inside quoted
+All Unicode characters other than `'` and `!` are legal inside quoted
 strings. This includes newlines and control characters. Quoting all such
 characters is left to the %-encoding process.
 
@@ -153,7 +154,7 @@ interpreted as Rison syntax characters.
 
 The _idchars_ set is hard to define well. The goal is to include foreign
 language alphanumeric characters and some punctuation that is common in
-identifiers ("`_`", "`-`", "`.`", "`/`", and others). However, whitespace and
+identifiers (`_`, `-`, `.`, `/`, and others). However, whitespace and
 most punctuation characters should require quoting.
 
 ### Emailing URIs
@@ -177,8 +178,7 @@ angle brackets: `<http://...>` which some mail readers have better luck with.
 
 ### Variations
 
-There are several variations on Rison which are useful or at least thought-
-provoking.
+There are several variations on Rison which are useful or at least thought-provoking.
 
 #### O-Rison
 
@@ -210,17 +210,17 @@ Notice that O-Rison looks almost like a drop-in replacement for [ URL form
 encoding](http://www.w3.org/TR/html4/interact/forms.html#form-content-type),
 with two substitutions:
 
-  * "`:`" for "`=`"
-  * "`,`" for "`&`"
+  * `:` for `=`
+  * `,` for `&`
 
-We could expand the Rison parser to treat all of "`,`", "`&`", and "`;`" as
-valid item separators and both "`:`" and "`=`" as key-value separators. In
+We could expand the Rison parser to treat all of `,`, `&`, and `;` as
+valid item separators and both `:` and `=` as key-value separators. In
 this case the vast majority of URI queries would form a flat subset of
 O-Rison. The exceptions are services that depend on ordering of query
 parameters or allow duplicate parameter names.
 
 This extension doesn't change the parsing of standard Rison strings because
-"`&`", "`=`", and "`;`" are already illegal in Rison identifiers.
+`&`, `=`, and `;` are already illegal in Rison identifiers.
 
 ### Examples
 
